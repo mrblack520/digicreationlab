@@ -18,7 +18,10 @@ function jsonField(array $data): string
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard | Master Control</title>
-  <link rel="stylesheet" href="../assets/css/admin.css">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="stylesheet" href="../assets/css/admin.css?v=<?php echo @filemtime(__DIR__ . '/../assets/css/admin.css') ?: time(); ?>">
 </head>
 <body class="admin-body">
   <aside class="admin-sidebar">
@@ -98,8 +101,8 @@ function jsonField(array $data): string
         <div class="grid-2">
           <label>Nav Link Text<input type="text" name="nav_label" value="<?php echo e($content['header']['nav_label']); ?>"></label>
           <label>Nav Link URL<input type="text" name="nav_url" value="<?php echo e($content['header']['nav_url']); ?>"></label>
-          <label>CTA Button Text<input type="text" name="cta_text" value="<?php echo e($content['header']['cta_text']); ?>"></label>
-          <label>CTA Button URL<input type="text" name="cta_url" value="<?php echo e($content['header']['cta_url']); ?>"></label>
+          <label>Call Now Label (unused — header uses WhatsApp)<input type="text" name="cta_text" value="<?php echo e($content['header']['cta_text']); ?>"></label>
+          <label>Call Now URL (unused — uses Social WhatsApp)<input type="text" name="cta_url" value="<?php echo e($content['header']['cta_url']); ?>"></label>
         </div>
         <button type="submit" class="btn-save">Save Header</button>
       </form>

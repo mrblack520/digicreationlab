@@ -88,7 +88,8 @@ $dialCodes = countryDialCodes();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?php echo $viewLead ? 'View Lead' : 'Leads'; ?> | Admin</title>
-  <link rel="stylesheet" href="../assets/css/admin.css">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <link rel="stylesheet" href="../assets/css/admin.css?v=<?php echo @filemtime(__DIR__ . '/../assets/css/admin.css') ?: time(); ?>">
 </head>
 <body class="admin-body">
   <aside class="admin-sidebar">
@@ -200,7 +201,7 @@ $dialCodes = countryDialCodes();
     <?php else: ?>
     <div class="admin-topbar">
       <h1>Leads</h1>
-      <p>Free Audit submissions — view, save, and update status.</p>
+      <p>Lead form submissions — view, save, and update status.</p>
     </div>
 
     <?php if ($flash): ?>
@@ -215,7 +216,7 @@ $dialCodes = countryDialCodes();
       <h2>All leads (<?php echo count($leads); ?>)</h2>
 
       <?php if ($leads === []): ?>
-      <p class="hint">No leads yet. When someone completes Free Audit, they will show up here.</p>
+      <p class="hint">No leads yet.</p>
       <?php else: ?>
       <div class="leads-table-wrap">
         <table class="leads-table">
