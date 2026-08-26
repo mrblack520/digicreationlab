@@ -34,10 +34,11 @@
       <nav class="nav" aria-label="Primary">
         <?php
         $navLinks = $content['header']['nav_links'] ?? [
-            ['label' => $content['header']['nav_label'] ?? 'Contact', 'url' => $content['header']['nav_url'] ?? '#contact'],
+            ['label' => $content['header']['nav_label'] ?? 'Contact', 'url' => $content['header']['nav_url'] ?? 'contact.php'],
         ];
         $callNowLabel = 'Call Now';
         $mainNavLinks = [];
+        $hasContactNav = false;
         foreach ($navLinks as $link) {
             $label = trim((string) ($link['label'] ?? ''));
             $url = trim((string) ($link['url'] ?? ''));
@@ -49,7 +50,13 @@
                 }
                 continue;
             }
+            if (strcasecmp($label, 'Contact') === 0 || str_contains(strtolower($url), 'contact.php')) {
+                $hasContactNav = true;
+            }
             $mainNavLinks[] = $link;
+        }
+        if (!$hasContactNav) {
+            $mainNavLinks[] = ['label' => 'Contact', 'url' => 'contact.php'];
         }
         foreach ($mainNavLinks as $link):
             $linkUrl = $link['url'] ?? '#';
@@ -58,6 +65,9 @@
                 $isActive = true;
             }
             if (str_contains($linkUrl, 'portfolio.php') && basename($_SERVER['PHP_SELF'] ?? '') === 'portfolio.php') {
+                $isActive = true;
+            }
+            if (str_contains($linkUrl, 'contact.php') && basename($_SERVER['PHP_SELF'] ?? '') === 'contact.php') {
                 $isActive = true;
             }
         ?>

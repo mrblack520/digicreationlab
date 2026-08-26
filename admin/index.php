@@ -40,6 +40,7 @@ function jsonField(array $data): string
       <a href="#blog">Blog</a>
       <a href="#stats_section">Statistics</a>
       <a href="#testimonials">Testimonials</a>
+      <a href="#pricing">Pricing</a>
       <a href="#portfolio">Portfolio</a>
       <a href="#social">Social & WhatsApp</a>
       <a href="#footer_cta">Footer CTA</a>
@@ -289,6 +290,30 @@ function jsonField(array $data): string
       </form>
     </section>
 
+    <!-- PRICING -->
+    <section class="admin-panel" id="pricing">
+      <h2>Pricing Page</h2>
+      <form action="save.php" method="post" class="admin-form" id="pricing-form">
+        <input type="hidden" name="section" value="pricing">
+        <textarea name="categories_json" id="pricing-categories-json" class="sr-only-admin" hidden><?php echo e(json_encode($content['pricing']['categories'] ?? [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)); ?></textarea>
+
+        <h3 class="admin-subhead">Page Header</h3>
+        <div class="grid-2">
+          <label>Browser Page Title<input type="text" name="page_title" value="<?php echo e($content['pricing']['page_title'] ?? 'Pricing'); ?>"></label>
+          <label>Eyebrow<input type="text" name="eyebrow" value="<?php echo e($content['pricing']['eyebrow'] ?? 'Pricing'); ?>"></label>
+          <label>Main Title<input type="text" name="title" value="<?php echo e($content['pricing']['title'] ?? ''); ?>"></label>
+          <label>Currency Symbol<input type="text" name="currency" value="<?php echo e($content['pricing']['currency'] ?? '$'); ?>" placeholder="$"></label>
+        </div>
+        <label>Subtitle<textarea name="subtitle" rows="2"><?php echo e($content['pricing']['subtitle'] ?? ''); ?></textarea></label>
+
+        <h3 class="admin-subhead">Categories & Plans</h3>
+        <p class="hint">Har category (jaise 3 IN 1, Logo Packages) ke andar multiple plans add/edit/remove kar sakte ho. Features ek line pe ek likho.</p>
+        <div id="pricing-categories-editor" class="pricing-admin-editor"></div>
+        <button type="button" class="btn-add" id="pricing-add-category">+ Add Category</button>
+        <button type="submit" class="btn-save">Save Pricing</button>
+      </form>
+    </section>
+
     <!-- PORTFOLIO -->
     <section class="admin-panel" id="portfolio">
       <h2>Portfolio Page</h2>
@@ -353,6 +378,13 @@ function jsonField(array $data): string
         <div class="grid-2">
           <label>WhatsApp Number<input type="text" name="whatsapp_number" value="<?php echo e($content['social']['whatsapp_number'] ?? ''); ?>" placeholder="923001234567"></label>
           <label>Default Message<input type="text" name="whatsapp_message" value="<?php echo e($content['social']['whatsapp_message'] ?? ''); ?>" placeholder="Hi, I would like to know more..."></label>
+        </div>
+
+        <h3 class="admin-subhead">Contact Details</h3>
+        <p class="hint">Contact page — Email Us / Chat Us cards inhi values se bante hain. Chat Us pe click WhatsApp Number pe jata hai; number dikhane ke liye neeche wala field use karo.</p>
+        <div class="grid-2">
+          <label>Email<input type="email" name="email" value="<?php echo e($content['social']['email'] ?? ''); ?>" placeholder="hello@digicreation.com"></label>
+          <label>Chat Us Number (display)<input type="text" name="phone" value="<?php echo e($content['social']['phone'] ?? ($content['footer_cta']['phone'] ?? '')); ?>" placeholder="+92 300 1234567"></label>
         </div>
 
         <h3 class="admin-subhead">Social Links</h3>
@@ -429,6 +461,6 @@ function jsonField(array $data): string
     </section>
   </main>
 
-  <script src="../assets/js/admin.js"></script>
+  <script src="../assets/js/admin.js?v=<?php echo @filemtime(__DIR__ . '/../assets/js/admin.js') ?: time(); ?>"></script>
 </body>
 </html>

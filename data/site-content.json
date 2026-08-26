@@ -19,10 +19,14 @@
             {
                 "label": "Portfolio",
                 "url": "portfolio.php"
+            },
+            {
+                "label": "Contact",
+                "url": "contact.php"
             }
         ],
         "nav_label": "Contact",
-        "nav_url": "#contact",
+        "nav_url": "contact.php",
         "cta_text": "Call Now",
         "cta_url": "https://wa.me/923363409403"
     },
@@ -687,15 +691,17 @@
         "partner_eyebrow": "A partner, not a vendor",
         "partners": "Google Cloud Partner, Meta Business Partners, Google Partner, Shopify Partner, TikTok Marketing Partners",
         "phone_label": "Ready to speak with a marketing expert? Give us a ring",
-        "phone": "888-400-5050",
+        "phone": "03252100730",
         "button_text": "Chat on WhatsApp",
-        "button_url": "https://wa.me/923363409403",
+        "button_url": "https://wa.me/03252100730",
         "roas_title": "6.7 / Average ROAS",
         "roas_text": "across our 100+ Global Clients on SEO, PPC & Social"
     },
     "social": {
-        "whatsapp_number": "03363409403",
+        "whatsapp_number": "03252100730",
         "whatsapp_message": "Hi, I would like to know more about your services.",
+        "email": "info@digicreationlab.com",
+        "phone": "03252100730",
         "instagram": "#",
         "tiktok": "#",
         "twitter": "#",
@@ -708,8 +714,8 @@
         "links_col2": "Email marketing\nConversion rate optimization",
         "links_col3": "Social Media Marketing\nGoogle shopping",
         "links_col4": "Influencer marketing\nAmazon shopping",
-        "nav": "About, Blog, Careers, Team, Success Stories, Awards, Contact",
-        "copyright": "VamTam",
+        "nav": "About, Blog, Contact|contact.php",
+        "copyright": "DigiCreation",
         "terms_url": "#",
         "privacy_url": "#",
         "social_instagram": "#",

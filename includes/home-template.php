@@ -317,17 +317,6 @@ if (!isset($waUrl)) {
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <p class="eyebrow"><?php echo e($footer['solutions_eyebrow']); ?></p>
-    <div class="footer-links">
-      <?php foreach (['links_col1', 'links_col2', 'links_col3', 'links_col4'] as $col): ?>
-      <div>
-        <?php foreach (linesToArray($footer[$col]) as $link): ?>
-        <a href="#"><?php echo e($link); ?></a>
-        <?php endforeach; ?>
-      </div>
-      <?php endforeach; ?>
-    </div>
-
     <nav class="footer-nav" aria-label="Footer">
       <?php foreach ($footerNav as $link): ?>
       <a href="<?php echo e($link['url']); ?>"><?php echo e($link['label']); ?></a>

@@ -142,6 +142,77 @@ try {
             ];
             break;
 
+        case 'pricing':
+            $categories = parseRepeaterJson($_POST['categories_json'] ?? '', []);
+            $normalized = [];
+            foreach ($categories as $cat) {
+                if (!is_array($cat)) {
+                    continue;
+                }
+                $title = trim((string) ($cat['title'] ?? ''));
+                $id = trim((string) ($cat['id'] ?? ''));
+                if ($id === '' && $title !== '') {
+                    $id = strtolower(preg_replace('/[^a-z0-9]+/i', '-', $title) ?? '');
+                    $id = trim($id, '-');
+                }
+                if ($id === '' && $title === '') {
+                    continue;
+                }
+
+                $plans = [];
+                foreach (($cat['plans'] ?? []) as $plan) {
+                    if (!is_array($plan)) {
+                        continue;
+                    }
+                    $name = trim((string) ($plan['name'] ?? ''));
+                    $featuresRaw = $plan['features'] ?? [];
+                    if (is_string($featuresRaw)) {
+                        $features = linesToArray(str_replace(',', "\n", $featuresRaw));
+                    } elseif (is_array($featuresRaw)) {
+                        $features = array_values(array_filter(array_map(
+                            static fn ($f) => trim((string) $f),
+                            $featuresRaw
+                        ), static fn ($f) => $f !== ''));
+                    } else {
+                        $features = [];
+                    }
+
+                    if ($name === '' && $features === [] && trim((string) ($plan['price'] ?? '')) === '') {
+                        continue;
+                    }
+
+                    $plans[] = [
+                        'name' => $name !== '' ? $name : 'Plan',
+                        'description' => trim((string) ($plan['description'] ?? '')),
+                        'price' => trim((string) ($plan['price'] ?? '')),
+                        'old_price' => trim((string) ($plan['old_price'] ?? '')),
+                        'period' => trim((string) ($plan['period'] ?? '')),
+                        'badge' => trim((string) ($plan['badge'] ?? '')),
+                        'featured' => !empty($plan['featured']) && $plan['featured'] !== '0' && $plan['featured'] !== false,
+                        'features' => $features,
+                        'button_text' => trim((string) ($plan['button_text'] ?? 'Order Now')) ?: 'Order Now',
+                        'button_url' => trim((string) ($plan['button_url'] ?? 'index.php#contact')) ?: 'index.php#contact',
+                    ];
+                }
+
+                $normalized[] = [
+                    'id' => $id !== '' ? $id : 'category-' . (count($normalized) + 1),
+                    'title' => $title !== '' ? $title : 'Category',
+                    'subtitle' => trim((string) ($cat['subtitle'] ?? '')),
+                    'plans' => $plans,
+                ];
+            }
+
+            $content['pricing'] = [
+                'page_title' => trim($_POST['page_title'] ?? 'Pricing'),
+                'eyebrow' => trim($_POST['eyebrow'] ?? 'Pricing'),
+                'title' => trim($_POST['title'] ?? ''),
+                'subtitle' => trim($_POST['subtitle'] ?? ''),
+                'currency' => trim($_POST['currency'] ?? '$') ?: '$',
+                'categories' => $normalized,
+            ];
+            break;
+
         case 'portfolio':
             $content['portfolio'] = [
                 'page_title' => trim($_POST['page_title'] ?? 'Portfolio'),
@@ -157,6 +228,8 @@ try {
             $content['social'] = [
                 'whatsapp_number' => preg_replace('/\D+/', '', $_POST['whatsapp_number'] ?? ''),
                 'whatsapp_message' => trim($_POST['whatsapp_message'] ?? ''),
+                'email' => trim($_POST['email'] ?? ''),
+                'phone' => trim($_POST['phone'] ?? ''),
                 'instagram' => trim($_POST['instagram'] ?? '#'),
                 'tiktok' => trim($_POST['tiktok'] ?? '#'),
                 'twitter' => trim($_POST['twitter'] ?? '#'),
@@ -168,6 +241,9 @@ try {
             $content['footer']['social_twitter'] = $content['social']['twitter'];
             $content['footer']['social_facebook'] = $content['social']['facebook'];
             $content['footer']['social_youtube'] = $content['social']['youtube'];
+            if ($content['social']['phone'] !== '') {
+                $content['footer_cta']['phone'] = $content['social']['phone'];
+            }
             break;
 
         case 'footer_cta':
