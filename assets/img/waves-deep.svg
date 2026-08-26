@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 260" fill="none">
+  <defs>
+    <linearGradient id="deep" x1="0" y1="0" x2="360" y2="260" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7B6BFF"/>
+      <stop offset="0.5" stop-color="#4F3FD4"/>
+      <stop offset="1" stop-color="#3A2EB8"/>
+    </linearGradient>
+  </defs>
+  <!-- concentric ridge arcs -->
+  <path d="M-20 220 C 60 40, 200 -20, 380 80" stroke="url(#deep)" stroke-width="28" fill="none" stroke-linecap="round"/>
+  <path d="M-30 250 C 70 70, 210 10, 390 110" stroke="#6A5AE8" stroke-width="26" fill="none" stroke-linecap="round" opacity="0.95"/>
+  <path d="M-40 280 C 80 100, 220 40, 400 140" stroke="#5A49D8" stroke-width="26" fill="none" stroke-linecap="round"/>
+  <path d="M-50 310 C 90 130, 230 70, 410 170" stroke="#4A39C4" stroke-width="26" fill="none" stroke-linecap="round"/>
+  <path d="M-60 340 C 100 160, 240 100, 420 200" stroke="#3D2EB0" stroke-width="26" fill="none" stroke-linecap="round"/>
+  <!-- soft highlight on ridges -->
+  <path d="M40 160 C 120 60, 220 30, 320 70" stroke="#C4BAFF" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.35"/>
+</svg>
