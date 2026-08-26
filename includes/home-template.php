@@ -34,8 +34,8 @@ if (!isset($waUrl)) {
 
     <div class="hero-visual">
       <img class="hero-bento-img" src="<?php echo e($hero['hero_image']); ?>" alt="<?php echo e($hero['title']); ?>" width="1100" height="520">
-      <a href="<?php echo e($waUrl !== '' ? $waUrl : '#contact'); ?>" class="hero-cta-hit" <?php echo $waUrl !== '' ? 'target="_blank" rel="noopener noreferrer"' : ''; ?> aria-label="Let's Talk on WhatsApp">
-        <span class="sr-only">Let's Talk on WhatsApp</span>
+      <a href="free-audit.php" class="hero-cta-hit" aria-label="Let's Talk — Start your free audit">
+        <span class="sr-only">Let's Talk — Start your free audit</span>
       </a>
     </div>
 
