@@ -1,4 +1,38 @@
-{
+-- DigiCreation Lab full import for phpMyAdmin
+-- Database: u896882670_digicreation
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+CREATE DATABASE IF NOT EXISTS `u896882670_digicreation`
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+USE `u896882670_digicreation`;
+
+DROP TABLE IF EXISTS `admin_users`;
+DROP TABLE IF EXISTS `site_content`;
+
+CREATE TABLE `site_content` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `content_key` VARCHAR(64) NOT NULL DEFAULT 'main',
+  `content_json` LONGTEXT NOT NULL,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_content_key` (`content_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `admin_users` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(64) NOT NULL,
+  `password_hash` VARCHAR(255) NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `site_content` (`content_key`, `content_json`) VALUES
+('main', '{
     "site": {
         "brand_name": "DIGI CREATION",
         "logo_mark": "DC",
@@ -24,13 +58,13 @@
         "nav_label": "Contact",
         "nav_url": "#contact",
         "cta_text": "Free Audit",
-        "cta_url": "free-audit.php"
+        "cta_url": "#audit"
     },
     "hero": {
         "title": "Marketing without borders",
         "subtitle": "Amplify your business with our data-centric, performance-driven digital marketing solutions.",
         "hero_image": "assets/img/uploads/upload_20260826_030139_67039230.png",
-        "cta_url": "free-audit.php"
+        "cta_url": "#contact"
     },
     "trust_bar": {
         "experts_text": "Connect our experts →",
@@ -39,13 +73,13 @@
         "avatar_2": "assets/img/avatar-2.svg",
         "avatar_3": "assets/img/avatar-3.svg",
         "revenue_number": "2120240368",
-        "revenue_label": "Revenue driven\nfor our clients",
+        "revenue_label": "Revenue driven\\nfor our clients",
         "reviews_count": "5000",
         "reviews_suffix": "+ Client reviews"
     },
     "what_we_do": {
         "eyebrow": "What we do",
-        "title": "We solve digital\nchallenges",
+        "title": "We solve digital\\nchallenges",
         "intro": "We help businesses grow by delivering tangible, measurable results. Our team of experts is dedicated to helping you achieve your goals and drive success in the digital world.",
         "link_text": "More about us",
         "link_url": "#capabilities",
@@ -90,7 +124,7 @@
             {
                 "icon": "✉️",
                 "title": "Email marketing",
-                "text": "When it comes to reaching your target audience, you can't get much closer than direct to their inboxes.",
+                "text": "When it comes to reaching your target audience, you can''t get much closer than direct to their inboxes.",
                 "link": "#"
             },
             {
@@ -103,7 +137,7 @@
     },
     "why_section": {
         "side_title": "Why Numerique is your top-choice",
-        "side_text": "We're a five-star rated, holistic full-service digital marketing agency. We believe in forming long-term partnerships with our clients, and we do that by delivering exceptional results and outstanding customer service.",
+        "side_text": "We''re a five-star rated, holistic full-service digital marketing agency. We believe in forming long-term partnerships with our clients, and we do that by delivering exceptional results and outstanding customer service.",
         "button_text": "Get proposal",
         "button_url": "#contact",
         "tabs": [
@@ -111,7 +145,7 @@
                 "id": "transparency",
                 "label": "Transparency",
                 "title": "100% Campaign transparency",
-                "text": "We believe in complete transparency with our clients. You'll have full visibility into your campaigns, performance metrics, and strategies at all times.",
+                "text": "We believe in complete transparency with our clients. You''ll have full visibility into your campaigns, performance metrics, and strategies at all times.",
                 "type": "chart"
             },
             {
@@ -160,7 +194,7 @@
     },
     "stories": {
         "eyebrow": "Success stories",
-        "title": "Our work drives\nbusinesses forward",
+        "title": "Our work drives\\nbusinesses forward",
         "link_text": "View all",
         "link_url": "#work",
         "items": [
@@ -272,7 +306,7 @@
                 "role": "CMO, TechFlow Inc."
             },
             {
-                "quote": "Professional, transparent, and results-driven. The best agency we've ever worked with.",
+                "quote": "Professional, transparent, and results-driven. The best agency we''ve ever worked with.",
                 "name": "James Rodriguez",
                 "role": "Founder, GrowthLab"
             }
@@ -689,7 +723,7 @@
         "phone_label": "Ready to speak with a marketing expert? Give us a ring",
         "phone": "888-400-5050",
         "button_text": "Get a free audit",
-        "button_url": "free-audit.php",
+        "button_url": "#audit",
         "roas_title": "6.7 / Average ROAS",
         "roas_text": "across our 100+ Global Clients on SEO, PPC & Social"
     },
@@ -704,10 +738,10 @@
     },
     "footer": {
         "solutions_eyebrow": "Solutions",
-        "links_col1": "Paid search marketing\nSearch engine optimization",
-        "links_col2": "Email marketing\nConversion rate optimization",
-        "links_col3": "Social Media Marketing\nGoogle shopping",
-        "links_col4": "Influencer marketing\nAmazon shopping",
+        "links_col1": "Paid search marketing\\nSearch engine optimization",
+        "links_col2": "Email marketing\\nConversion rate optimization",
+        "links_col3": "Social Media Marketing\\nGoogle shopping",
+        "links_col4": "Influencer marketing\\nAmazon shopping",
         "nav": "About, Blog, Careers, Team, Success Stories, Awards, Contact",
         "copyright": "VamTam",
         "terms_url": "#",
@@ -717,4 +751,9 @@
         "social_facebook": "#",
         "social_youtube": "#"
     }
-}
+}');
+
+INSERT INTO `admin_users` (`username`, `password_hash`) VALUES
+('admin', '$2y$10$M8QUMqOhc0/uTRfZwoG7lOUAWHFoli9BgxR784biUem5YaNtDiNc6');
+
+SET FOREIGN_KEY_CHECKS = 1;

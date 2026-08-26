@@ -17,13 +17,14 @@ function jsonField(array $data): string
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard | NUMÉRIQUE</title>
+  <title>Admin Dashboard | Master Control</title>
   <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 <body class="admin-body">
   <aside class="admin-sidebar">
-    <div class="sidebar-brand">NUMÉRIQUE<br><small>Master Control</small></div>
+    <div class="sidebar-brand">Master Control</div>
     <nav class="sidebar-nav">
+      <a href="leads.php">Leads</a>
       <a href="#site">Site & Logo</a>
       <a href="#header">Header</a>
       <a href="#hero">Hero</a>
@@ -51,7 +52,7 @@ function jsonField(array $data): string
   <main class="admin-main">
     <header class="admin-topbar">
       <h1>Landing Page Editor</h1>
-      <p>Edit every section — changes appear instantly on the live site.</p>
+      <p>Edit every section — changes go live on your Digi Creation site instantly.</p>
     </header>
 
     <?php if ($flash): ?>

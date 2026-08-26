@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css?v=<?php echo @filemtime(__DIR__ . '/../assets/css/style.css') ?: time(); ?>">
 </head>
 <body>
   <header class="site-header">
@@ -31,7 +31,20 @@
         $navLinks = $content['header']['nav_links'] ?? [
             ['label' => $content['header']['nav_label'] ?? 'Contact', 'url' => $content['header']['nav_url'] ?? '#contact'],
         ];
-        foreach ($navLinks as $link):
+        $callNow = null;
+        $mainNavLinks = [];
+        foreach ($navLinks as $link) {
+            $label = trim((string) ($link['label'] ?? ''));
+            $url = trim((string) ($link['url'] ?? ''));
+            $isCallNow = str_starts_with(strtolower($url), 'tel:')
+                || strcasecmp($label, 'Call Now') === 0;
+            if ($isCallNow && $callNow === null) {
+                $callNow = ['label' => $label !== '' ? $label : 'Call Now', 'url' => $url !== '' ? $url : '#'];
+                continue;
+            }
+            $mainNavLinks[] = $link;
+        }
+        foreach ($mainNavLinks as $link):
             $linkUrl = $link['url'] ?? '#';
             $isActive = false;
             if (str_contains($linkUrl, 'pricing.php') && basename($_SERVER['PHP_SELF'] ?? '') === 'pricing.php') {
@@ -45,10 +58,17 @@
         <?php endforeach; ?>
       </nav>
 
-      <a href="<?php echo e($content['header']['cta_url'] ?? '#audit'); ?>" class="btn btn-dark btn-header">
-        <?php echo e($content['header']['cta_text'] ?? 'Free Audit'); ?>
-        <span class="btn-arrow" aria-hidden="true">→</span>
-      </a>
+      <div class="header-actions">
+        <a href="free-audit.php" class="btn btn-dark btn-header">
+          <?php echo e($content['header']['cta_text'] ?? 'Free Audit'); ?>
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+        <?php if ($callNow): ?>
+        <a href="<?php echo e($callNow['url']); ?>" class="btn btn-outline btn-header btn-call-now">
+          <?php echo e($callNow['label']); ?>
+        </a>
+        <?php endif; ?>
+      </div>
 
       <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span>

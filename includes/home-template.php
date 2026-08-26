@@ -27,7 +27,7 @@ $footerNav = parseLinkLines(str_replace(', ', "\n", $footer['nav']));
 
     <div class="hero-visual">
       <img class="hero-bento-img" src="<?php echo e($hero['hero_image']); ?>" alt="<?php echo e($hero['title']); ?>" width="1100" height="520">
-      <a href="<?php echo e($hero['cta_url']); ?>" class="hero-cta-hit" aria-label="Let's Talk — Get Your Free Audit Today">
+      <a href="free-audit.php" class="hero-cta-hit" aria-label="Let's Talk — Get Your Free Audit Today">
         <span class="sr-only">Let's Talk</span>
       </a>
     </div>

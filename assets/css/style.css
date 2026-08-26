@@ -98,6 +98,17 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .nav-toggle { display: none; width: 40px; height: 40px; flex-direction: column; justify-content: center; gap: 6px; padding: 8px; }
 .nav-toggle span { display: block; height: 2px; background: var(--ink); border-radius: 2px; }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-shrink: 0;
+}
+.btn-header { white-space: nowrap; }
+.btn-call-now {
+  padding: 0.85rem 1.2rem;
+}
+
 /* ——— HERO ——— */
 .hero { max-width: var(--max); margin: 0 auto; padding: 1.5rem 1.5rem 0; }
 .hero-copy { text-align: center; margin-bottom: 1.75rem; }
@@ -689,6 +700,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .nav.is-open { display: flex; }
   .nav-toggle { display: flex; }
   .header-inner { position: relative; flex-wrap: wrap; }
+  .header-actions { margin-left: auto; gap: 0.4rem; }
+  .header-actions .btn-header {
+    padding: 0.7rem 0.95rem;
+    font-size: 0.68rem;
+  }
   .dropdown { position: static; transform: none; opacity: 1; visibility: visible; box-shadow: none; padding: 0 0 0 1rem; display: none; }
   .nav-item.is-open .dropdown { display: block; }
   .cards-3, .cards-4 { grid-template-columns: 1fr; }
@@ -702,6 +718,204 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .footer-links { grid-template-columns: repeat(2, 1fr); }
   .pricing-grid,
   .pricing-grid--4 { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
+}
+
+/* ——— FREE AUDIT / THANK YOU ——— */
+.audit-page {
+  min-height: calc(100vh - 180px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2.5rem 1.5rem 4rem;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(209, 207, 253, 0.55), transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+}
+.audit-shell {
+  width: min(560px, 100%);
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 2.25rem 2rem 2rem;
+  box-shadow: 0 24px 60px rgba(40, 30, 80, 0.08);
+  animation: auditIn 0.45s ease both;
+}
+.audit-heading { margin-bottom: 0.65rem; }
+.audit-lead {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.98rem;
+  margin: 0 auto 1.75rem;
+  max-width: 36ch;
+  line-height: 1.55;
+}
+.audit-lead a { font-weight: 700; border-bottom: 1.5px solid currentColor; }
+.audit-alert {
+  background: #fff1f1;
+  color: #b42318;
+  border: 1px solid #f5c2c0;
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+.audit-progress {
+  height: 6px;
+  background: var(--bg-soft);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 0.65rem;
+}
+.audit-progress-bar {
+  display: block;
+  height: 100%;
+  width: 16.66%;
+  background: var(--ink);
+  border-radius: inherit;
+  transition: width 0.35s ease;
+}
+.audit-step-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-light);
+  margin-bottom: 1.5rem;
+}
+.audit-step { display: none; animation: auditStep 0.3s ease both; }
+.audit-step.is-active { display: block; }
+.audit-label {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin-bottom: 0.55rem;
+}
+.audit-label span { color: #c0392b; }
+.audit-label em { font-style: normal; font-weight: 500; color: var(--muted-light); }
+.audit-input {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 0.95rem 1.05rem;
+  font: inherit;
+  font-size: 1rem;
+  background: #fafafa;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.audit-input:focus {
+  outline: none;
+  border-color: var(--ink);
+  background: var(--white);
+  box-shadow: 0 0 0 4px rgba(13, 13, 13, 0.06);
+}
+.audit-hint {
+  margin-top: 0.55rem;
+  font-size: 0.85rem;
+  color: var(--muted-light);
+}
+.audit-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  margin-top: 1.75rem;
+  flex-wrap: wrap;
+}
+.audit-actions #auditBack[hidden] {
+  display: none !important;
+}
+.thankyou-shell { text-align: center; }
+.thankyou-title { margin-bottom: 0.85rem; }
+.thankyou-copy { max-width: 42ch; }
+.thankyou-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.lead-modal[hidden] { display: none !important; }
+.lead-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+}
+.lead-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 18, 0.45);
+  backdrop-filter: blur(4px);
+}
+.lead-modal-card {
+  position: relative;
+  width: min(420px, 100%);
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 2rem 1.75rem 1.75rem;
+  box-shadow: 0 30px 80px rgba(20, 15, 40, 0.25);
+  animation: auditIn 0.35s ease both;
+  z-index: 1;
+}
+.lead-modal-card h2 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 0.35rem 0 0.65rem;
+}
+.lead-modal-text {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 1.35rem;
+  line-height: 1.5;
+}
+.lead-modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.lead-modal-actions .btn { justify-content: center; }
+.lead-modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.85rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--muted);
+}
+.lead-modal-close:hover { background: var(--bg); color: var(--ink); }
+body.modal-open { overflow: hidden; }
+
+@keyframes auditIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes auditStep {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.audit-phone-row {
+  display: grid;
+  grid-template-columns: minmax(140px, 0.95fr) 1.35fr;
+  gap: 0.65rem;
+}
+.audit-country {
+  padding-left: 0.75rem;
+  padding-right: 0.5rem;
+  font-size: 0.92rem;
+}
+.audit-phone { min-width: 0; }
+
+@media (max-width: 600px) {
+  .audit-shell { padding: 1.75rem 1.25rem 1.5rem; }
+  .audit-actions { justify-content: stretch; }
+  .audit-actions .btn { flex: 1; justify-content: center; }
+  .audit-phone-row { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {

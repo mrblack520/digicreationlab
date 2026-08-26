@@ -27,13 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Login | NUMÉRIQUE</title>
+  <title>Admin Login | Master Control</title>
   <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 <body class="admin-login-page">
   <div class="login-card">
-    <h1>Admin Panel</h1>
-    <p class="login-sub">Sign in to manage your landing page</p>
+    <h1>Master Control</h1>
+    <p class="login-sub">Sign in to manage Digi Creation content & leads</p>
     <?php if ($error): ?><div class="alert alert-error"><?php echo e($error); ?></div><?php endif; ?>
     <form method="post" class="admin-form">
       <label>Username<input type="text" name="username" required autofocus></label>
