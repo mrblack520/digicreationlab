@@ -9,12 +9,17 @@
   <link rel="shortcut icon" href="<?php echo e($content['site']['favicon']); ?>">
   <link rel="apple-touch-icon" href="<?php echo e($content['site']['favicon']); ?>">
   <?php endif; ?>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css?v=<?php echo @filemtime(__DIR__ . '/../assets/css/style.css') ?: time(); ?>">
 </head>
 <body>
+  <?php
+  require_once __DIR__ . '/helpers.php';
+  $social = $content['social'] ?? [];
+  $waUrl = whatsappUrl(
+      $social['whatsapp_number'] ?? ($content['footer_cta']['phone'] ?? ''),
+      $social['whatsapp_message'] ?? 'Hi, I would like to know more about your services.'
+  );
+  ?>
   <header class="site-header">
     <div class="header-inner">
       <a href="index.php" class="logo">
@@ -31,15 +36,17 @@
         $navLinks = $content['header']['nav_links'] ?? [
             ['label' => $content['header']['nav_label'] ?? 'Contact', 'url' => $content['header']['nav_url'] ?? '#contact'],
         ];
-        $callNow = null;
+        $callNowLabel = 'Call Now';
         $mainNavLinks = [];
         foreach ($navLinks as $link) {
             $label = trim((string) ($link['label'] ?? ''));
             $url = trim((string) ($link['url'] ?? ''));
             $isCallNow = str_starts_with(strtolower($url), 'tel:')
                 || strcasecmp($label, 'Call Now') === 0;
-            if ($isCallNow && $callNow === null) {
-                $callNow = ['label' => $label !== '' ? $label : 'Call Now', 'url' => $url !== '' ? $url : '#'];
+            if ($isCallNow) {
+                if ($label !== '') {
+                    $callNowLabel = $label;
+                }
                 continue;
             }
             $mainNavLinks[] = $link;
@@ -59,13 +66,15 @@
       </nav>
 
       <div class="header-actions">
-        <a href="free-audit.php" class="btn btn-dark btn-header">
-          <?php echo e($content['header']['cta_text'] ?? 'Free Audit'); ?>
+        <?php if ($waUrl !== ''): ?>
+        <a href="<?php echo e($waUrl); ?>" class="btn btn-dark btn-header btn-call-now" target="_blank" rel="noopener noreferrer">
+          <?php echo e($callNowLabel); ?>
           <span class="btn-arrow" aria-hidden="true">→</span>
         </a>
-        <?php if ($callNow): ?>
-        <a href="<?php echo e($callNow['url']); ?>" class="btn btn-outline btn-header btn-call-now">
-          <?php echo e($callNow['label']); ?>
+        <?php else: ?>
+        <a href="#contact" class="btn btn-dark btn-header btn-call-now">
+          <?php echo e($callNowLabel); ?>
+          <span class="btn-arrow" aria-hidden="true">→</span>
         </a>
         <?php endif; ?>
       </div>

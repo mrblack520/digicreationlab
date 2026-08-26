@@ -16,6 +16,13 @@ $testi = $c['testimonials'];
 $fcta = $c['footer_cta'];
 $footer = $c['footer'];
 $footerNav = parseLinkLines(str_replace(', ', "\n", $footer['nav']));
+if (!isset($waUrl)) {
+    require_once __DIR__ . '/helpers.php';
+    $waUrl = whatsappUrl(
+        ($c['social']['whatsapp_number'] ?? '') ?: ($fcta['phone'] ?? ''),
+        $c['social']['whatsapp_message'] ?? 'Hi, I would like to know more about your services.'
+    );
+}
 ?>
 
 <main>
@@ -27,8 +34,8 @@ $footerNav = parseLinkLines(str_replace(', ', "\n", $footer['nav']));
 
     <div class="hero-visual">
       <img class="hero-bento-img" src="<?php echo e($hero['hero_image']); ?>" alt="<?php echo e($hero['title']); ?>" width="1100" height="520">
-      <a href="free-audit.php" class="hero-cta-hit" aria-label="Let's Talk — Get Your Free Audit Today">
-        <span class="sr-only">Let's Talk</span>
+      <a href="<?php echo e($waUrl !== '' ? $waUrl : '#contact'); ?>" class="hero-cta-hit" <?php echo $waUrl !== '' ? 'target="_blank" rel="noopener noreferrer"' : ''; ?> aria-label="Let's Talk on WhatsApp">
+        <span class="sr-only">Let's Talk on WhatsApp</span>
       </a>
     </div>
 
@@ -295,7 +302,7 @@ $footerNav = parseLinkLines(str_replace(', ', "\n", $footer['nav']));
       <div class="footer-cta-right">
         <p class="cta-phone-label"><?php echo e($fcta['phone_label']); ?></p>
         <a href="tel:<?php echo e(preg_replace('/\D+/', '', $fcta['phone'])); ?>" class="phone-num"><?php echo e($fcta['phone']); ?></a>
-        <a href="<?php echo e($fcta['button_url']); ?>" class="btn btn-dark">
+        <a href="<?php echo e($waUrl !== '' ? $waUrl : ($fcta['button_url'] ?? '#contact')); ?>" class="btn btn-dark" <?php echo $waUrl !== '' ? 'target="_blank" rel="noopener noreferrer"' : ''; ?>>
           <?php echo e($fcta['button_text']); ?>
           <span class="btn-arrow" aria-hidden="true">→</span>
         </a>

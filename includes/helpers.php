@@ -88,6 +88,29 @@ function handleImageUpload(string $fieldName, string $current = ''): string
 }
 
 /**
+ * Build a wa.me URL from stored number + optional message.
+ */
+function whatsappUrl(?string $number = null, ?string $message = null): string
+{
+    $digits = preg_replace('/\D+/', '', (string) $number) ?? '';
+    if ($digits === '') {
+        return '';
+    }
+
+    // Local PK numbers like 03xxxxxxxxx → 92xxxxxxxxxx
+    if (str_starts_with($digits, '0') && strlen($digits) >= 10) {
+        $digits = '92' . substr($digits, 1);
+    }
+
+    $url = 'https://wa.me/' . $digits;
+    $message = trim((string) $message);
+    if ($message !== '') {
+        $url .= '?text=' . rawurlencode($message);
+    }
+    return $url;
+}
+
+/**
  * Build portfolio items from parallel POST arrays + optional file uploads.
  *
  * @param string $prefix e.g. logo or website

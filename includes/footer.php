@@ -1,11 +1,11 @@
 <?php
 /** @var array $content */
+require_once __DIR__ . '/helpers.php';
 $social = $content['social'] ?? [];
-$waPhone = preg_replace('/\D+/', '', $social['whatsapp_number'] ?? ($content['footer_cta']['phone'] ?? ''));
-$waMessage = $social['whatsapp_message'] ?? 'Hi, I would like to know more about your services.';
-$waUrl = $waPhone !== ''
-    ? 'https://wa.me/' . $waPhone . '?text=' . rawurlencode($waMessage)
-    : '';
+$waUrl = whatsappUrl(
+    $social['whatsapp_number'] ?? ($content['footer_cta']['phone'] ?? ''),
+    $social['whatsapp_message'] ?? 'Hi, I would like to know more about your services.'
+);
 ?>
 <?php if ($waUrl !== ''): ?>
 <a href="<?php echo e($waUrl); ?>" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">

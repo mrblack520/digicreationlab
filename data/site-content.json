@@ -10,7 +10,7 @@
         "nav_links": [
             {
                 "label": "Call Now",
-                "url": "tel:8884005050"
+                "url": "https://wa.me/923363409403"
             },
             {
                 "label": "Pricing",
@@ -23,14 +23,14 @@
         ],
         "nav_label": "Contact",
         "nav_url": "#contact",
-        "cta_text": "Free Audit",
-        "cta_url": "free-audit.php"
+        "cta_text": "Call Now",
+        "cta_url": "https://wa.me/923363409403"
     },
     "hero": {
         "title": "Marketing without borders",
         "subtitle": "Amplify your business with our data-centric, performance-driven digital marketing solutions.",
         "hero_image": "assets/img/uploads/upload_20260826_030139_67039230.png",
-        "cta_url": "free-audit.php"
+        "cta_url": "https://wa.me/923363409403"
     },
     "trust_bar": {
         "experts_text": "Connect our experts →",
@@ -688,8 +688,8 @@
         "partners": "Google Cloud Partner, Meta Business Partners, Google Partner, Shopify Partner, TikTok Marketing Partners",
         "phone_label": "Ready to speak with a marketing expert? Give us a ring",
         "phone": "888-400-5050",
-        "button_text": "Get a free audit",
-        "button_url": "free-audit.php",
+        "button_text": "Chat on WhatsApp",
+        "button_url": "https://wa.me/923363409403",
         "roas_title": "6.7 / Average ROAS",
         "roas_text": "across our 100+ Global Clients on SEO, PPC & Social"
     },
